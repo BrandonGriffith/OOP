@@ -9,24 +9,23 @@ class GetRandomFile {
 
     recursive_scan_directory(dirname) {
         if (!fs.existsSync(dirname) || !fs.statSync(dirname).isDirectory()) {
-            return []; // Return an empty array if the directory is not valid
+            return; // Return an empty array if the directory is not valid
         }
-        let files = []; // Initialize an empty array to store the file paths
         const directory_contents = fs.readdirSync(dirname, { withFileTypes: true }); // Read the directory contents
         for (const directory_content of directory_contents) {
             const filePath = dirname + '\\' + directory_content.name; // Create the full path of the directory\file
-            if (!directory_content.isDirectory() && directory_content.name.length > 0) {
-                files.push(filePath); // Add the file path to the array
+            if (!directory_content.isDirectory()) {
+                this.all_files.push(filePath); // Add the file path to the array
             } else {
-                files = files.concat(this.recursive_scan_directory(filePath)); // Recursively scan the subdirectory
+                this.all_files.concat(this.recursive_scan_directory(filePath)); // Recursively scan the subdirectory
             }
         }
-        return files; // Return the array of file paths
+        return; // Return the array of file paths
     }
 
     start_pro() {
         try {
-            this.all_files = this.recursive_scan_directory(this.rootdir); // Get all file paths in the project directory
+            this.recursive_scan_directory(this.rootdir); // Get all file paths in the project directory
             if (this.all_files.length > 0) {
                 const randomIndex = Math.floor(Math.random() * (this.all_files.length + 1)); // Generate a random index
                 const randomFile = this.all_files[randomIndex]; // Get a random file path
