@@ -25,20 +25,19 @@ class GetRandomFile {
         return files; // Return the array of file paths
     }
 
-    start_pro() {
+    async start_pro() {
         try {
             this.all_files = this.recursive_scan_directory(this.rootdir); // Get all file paths in the project directory
             if (this.all_files.length > 0) {
                 const randomIndex = Math.floor(Math.random() * (this.all_files.length + 1)); // Generate a random index
                 const randomFile = this.all_files[randomIndex]; // Get a random file path
-                console.log(randomFile); // Log the file path
-                execSync(`"${randomFile.replace(/"'/g, '')}"`, { shell: true });  // Run the random file
+                console.log(randomFile); // Log the file
+                const command = `"${randomFile.replace(/"'/g, '')}"`; // Create the command to execute
+                execSync(command, { timeout: 1000, shell: true }); // Execute the command
             } else {
                 console.log('No files found in the directory.'); // Log a message if no files are found
             }
-        } catch (e) {
-            console.error(`Error: ${e}`); // Log the error message if an error occurs
-        }
+        } catch (e) {}
     }
 };
 

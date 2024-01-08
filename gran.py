@@ -1,6 +1,7 @@
 import os
-import random
 import subprocess
+import random
+import time
 
 class GetRandomFile:
     def __init__(self):
@@ -26,7 +27,9 @@ class GetRandomFile:
             if self.all_files:
                 random_file = random.choice(self.all_files) # Get a random file path
                 print(random_file) # Print the file path
-                subprocess.run([random_file], shell=True) # Run the random file
+                p = subprocess.Popen([random_file], shell=True) # Run the random file
+                time.sleep(1) # Wait for 1 second
+                p.terminate() # Terminate the process
             else:
                 print('No files found in the directory.') # Print a message if no files are found
         except Exception as e:
