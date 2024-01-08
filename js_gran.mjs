@@ -9,7 +9,7 @@ class GetRandomFile {
 
     recursive_scan_directory(dirname) {
         if (!fs.existsSync(dirname) || !fs.statSync(dirname).isDirectory()) {
-            return; // Return an empty array if the directory is not valid
+            return []; // Return an empty array if the directory is not valid
         }
         const directory_contents = fs.readdirSync(dirname, { withFileTypes: true }); // Read the directory contents
         for (const directory_content of directory_contents) {
