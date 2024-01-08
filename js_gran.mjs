@@ -25,7 +25,7 @@ class GetRandomFile {
 
     start_pro() {
         try {
-            this.recursive_scan_directory(this.rootdir); // Get all file paths in the project directory
+            this.recursive_scan_directory(this.rootdir); // Scan and store all file paths
             if (this.all_file_paths.length > 0) {
                 const randomIndex = Math.floor(Math.random() * (this.all_file_paths.length + 1)); // Generate a random index
                 const randomFile = this.all_file_paths[randomIndex]; // Get a random file path
