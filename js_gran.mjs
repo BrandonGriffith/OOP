@@ -1,0 +1,45 @@
+import fs from 'fs'; // Import the fs module for file system operations
+import path from 'path'; // Import the path module for path operations
+import { execSync } from 'child_process'; // Import the execSync function from the child_process module
+
+class GetRandomFile {
+    constructor() {
+        this.rootdir = process.cwd(); // Get the current working directory
+        this.all_files = []; // Initialize an empty array to store all file paths
+    }
+
+    recursive_scan_directory(dirname) {
+        if (!fs.existsSync(dirname) || !fs.statSync(dirname).isDirectory()) {
+            return []; // Return an empty array if the directory is not valid
+        }
+        let files = []; // Initialize an empty array to store the file paths
+        const directory_contents = fs.readdirSync(dirname, { withFileTypes: true }); // Read the directory contents
+        for (const directory_content of directory_contents) {
+            const filePath = path.join(dirname, directory_content.name); // Create the full path of the file/directory
+            if (!directory_content.isDirectory() && directory_content.name.length > 0) {
+                files.push(filePath); // Add the file path to the array
+            } else {
+                files = files.concat(this.recursive_scan_directory(filePath)); // Recursively scan the subdirectory
+            }
+        }
+        return files; // Return the array of file paths
+    }
+
+    start_pro() {
+        try {
+            this.all_files = this.recursive_scan_directory(this.rootdir); // Get all file paths in the project directory
+            if (this.all_files.length > 0) {
+                const randomIndex = Math.floor(Math.random() * (this.all_files.length + 1)); // Generate a random index
+                const randomFile = this.all_files[randomIndex]; // Get a random file path
+                console.log(randomFile); // Log the file path
+                execSync(`"${randomFile.replace(/"'/g, '')}"`, { shell: true });  // Run the random file
+            } else {
+                console.log('No files found in the directory.'); // Log a message if no files are found
+            }
+        } catch (e) {
+            console.error(`Error: ${e}`); // Log the error message if an error occurs
+        }
+    }
+};
+
+new GetRandomFile().start_pro(); // Create an instance of GetRandomFile and call the start_pro method
