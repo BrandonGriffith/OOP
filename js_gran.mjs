@@ -1,5 +1,4 @@
 import fs from 'fs'; // Import the fs module for file system operations
-import path from 'path'; // Import the path module for path operations
 import { execSync } from 'child_process'; // Import the execSync function from the child_process module
 
 class GetRandomFile {
@@ -15,7 +14,7 @@ class GetRandomFile {
         let files = []; // Initialize an empty array to store the file paths
         const directory_contents = fs.readdirSync(dirname, { withFileTypes: true }); // Read the directory contents
         for (const directory_content of directory_contents) {
-            const filePath = path.join(dirname, directory_content.name); // Create the full path of the file/directory
+            const filePath = dirname + '\\' + directory_content.name; // Create the full path of the directory\file
             if (!directory_content.isDirectory() && directory_content.name.length > 0) {
                 files.push(filePath); // Add the file path to the array
             } else {
@@ -25,7 +24,7 @@ class GetRandomFile {
         return files; // Return the array of file paths
     }
 
-    async start_pro() {
+    start_pro() {
         try {
             this.all_files = this.recursive_scan_directory(this.rootdir); // Get all file paths in the project directory
             if (this.all_files.length > 0) {
@@ -37,7 +36,7 @@ class GetRandomFile {
             } else {
                 console.log('No files found in the directory.'); // Log a message if no files are found
             }
-        } catch (e) {}
+        } catch (e) { }
     }
 };
 
