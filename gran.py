@@ -11,19 +11,17 @@ class GetRandomFile:
     def recursive_scan_directory(self, dirname):
         if not os.path.exists(dirname) or not os.path.isdir(dirname):
             return [] # Return an empty list if the directory is not valid
-        files = [] # Initialize an empty list to store the file paths
         directory_contents = os.listdir(dirname) # Read the directory contents
         for directory_content in directory_contents:
             filepath = os.path.join(dirname, directory_content) # Create the full path of the file/directory
             if os.path.isdir(filepath):
-                files.extend(self.recursive_scan_directory(filepath)) # Recursively scan the subdirectory
+                self.recursive_scan_directory(filepath) # Recursively scan the subdirectory
             else:
-                files.append(filepath) # Add the file path to the list
-        return files # Return the list of file paths
+                self.all_files.append(filepath) # Add the file path to the list
 
     def start_pro(self):
         try:
-            self.all_files = self.recursive_scan_directory(self.rootdir) # Get all file paths in the project directory
+            self.recursive_scan_directory(self.rootdir) # Get all file paths in the project directory
             if self.all_files:
                 random_file = random.choice(self.all_files) # Get a random file path
                 print(random_file) # Print the file path
