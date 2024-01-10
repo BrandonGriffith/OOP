@@ -9,8 +9,6 @@ class GetRandomFile:
         self.all_files = [] # Initialize an empty list to store all file paths
 
     def recursive_scan_directory(self, dirname):
-        if not os.path.exists(dirname) or not os.path.isdir(dirname):
-            return [] # Return an empty list if the directory is not valid
         directory_contents = os.listdir(dirname) # Read the directory contents
         for directory_content in directory_contents:
             filepath = os.path.join(dirname, directory_content) # Create the full path of the file/directory

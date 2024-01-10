@@ -8,19 +8,15 @@ class GetRandomFile {
     }
 
     recursive_scan_directory(dirname) {
-        if (!fs.existsSync(dirname) || !fs.statSync(dirname).isDirectory()) {
-            return []; // Return an empty array if the directory is not valid
-        }
         const directory_contents = fs.readdirSync(dirname, { withFileTypes: true }); // Read the directory contents
         for (const directory_content of directory_contents) {
             const filePath = dirname + '\\' + directory_content.name; // Create the full path of the directory\file
             if (!directory_content.isDirectory()) {
                 this.all_file_paths.push(filePath); // Add the file path to the array
             } else {
-                this.all_file_paths.concat(this.recursive_scan_directory(filePath)); // Recursively scan the subdirectory
+                this.recursive_scan_directory(filePath); // Recursively scan the subdirectory
             }
         }
-        return;
     }
 
     start_pro() {
