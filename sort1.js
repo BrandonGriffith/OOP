@@ -74,16 +74,16 @@ Array.prototype.sort1 = function (compareFunction) {
 
 const arr1 = [5, 2, 7, 1, 9];
 arr1.sort1();
-console.log(arr1); // Output: [1, 2, 5, 7, 9]
+console.log(arr1);
 
 const arr2 = ['banana', 'apple', 'orange', 'grape'];
 arr2.sort1();
-console.log(arr2); // Output: ['apple', 'banana', 'grape', 'orange']
+console.log(arr2);
 
 const arr3 = [10, 5, 20, 15, 30];
 arr3.sort1((a, b) => b - a);
-console.log(arr3); // Output: [30, 20, 15, 10, 5]
+console.log(arr3);
 
 const arr4 = [{ name: 'John', age: 25 }, { name: 'Alice', age: 30 }, { name: 'Bob', age: 20 }];
 arr4.sort1((a, b) => a.age - b.age);
-console.log(arr4); // Output: [{ name:
+console.log(arr4);
