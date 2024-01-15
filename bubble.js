@@ -16,6 +16,8 @@ class BubbleSort {
         return this.arr;
     }
 }
+
 const arr = [64, 34, 25, 12, 22, 11, 90];
 const sortedArr = new BubbleSort(arr).bubblesort();
+
 console.log(sortedArr);
