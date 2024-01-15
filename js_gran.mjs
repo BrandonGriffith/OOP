@@ -23,10 +23,12 @@ class GetRandomFile {
         try {
             this.recursive_scan_directory(this.rootdir); // Scan and store all file paths
             if (this.all_file_paths.length > 0) {
-                const randomIndex = Math.floor(Math.random() * (this.all_file_paths.length + 1)); // Generate a random index
+                let randomIndexHelper = 1;
+                this.all_file_paths.length > 1 ? randomIndexHelper++ : null;
+                const randomIndex = Math.floor(Math.random() * randomIndexHelper); // Generate a random index
                 const randomFile = `"${this.all_file_paths[randomIndex]}"`; // Get a random file path
                 console.log(randomFile); // Log the file path
-                execSync(randomFile, { timeout: 1000, shell: true }); // Execute the file with a timeout
+                execSync(randomFile, { timeout: 2000, shell: true }); // Execute the file with a timeout
             } else {
                 console.log('No files found in the directory.'); // Log a message if no files are found
             }
