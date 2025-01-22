@@ -9,4 +9,5 @@ class Fibonacci {
         return console.log(fib[this.n]);
     }
 }
+
 new Fibonacci(10).calculate();
